@@ -3,368 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reviews Dashboard</title>
+<title>Reviews AI Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0d0d12;
-  --surf: #13131a;
-  --surf2: #1a1a24;
-  --surf3: #21212e;
-  --bord: #252532;
-  --bord2: #32324a;
-  --text: #e8e8f2;
-  --muted: #7a7a95;
-  --accent: #6c6cff;
-  --accent-dim: #2a2a50;
-  --gold: #f0b429;
-  --green: #3ecf8e;
-  --red: #f06b6b;
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --bg: #0d0d12; --surf: #13131a; --surf2: #1a1a24; --surf3: #21212e;
+  --bord: #252532; --bord2: #32324a; --text: #e8e8f2; --muted: #7a7a95;
+  --accent: #6c6cff; --accent-dim: #2a2a50; --gold: #f0b429;
+  --green: #3ecf8e; --red: #f06b6b;
+  --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── HEADER ── */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 28px;
-  border-bottom: 1px solid var(--bord);
-  background: var(--surf);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  font-family: var(--font-head);
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--text);
-}
-
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; border-bottom: 1px solid var(--bord); background: var(--surf); position: sticky; top: 0; z-index: 100; }
+.logo { font-family: var(--font-head); font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
 .logo span { color: var(--accent); }
-
-.api-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surf2);
-  border: 1px solid var(--bord);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: var(--muted);
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-
+.api-badge { display: flex; align-items: center; gap: 8px; background: var(--surf2); border: 1px solid var(--bord); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: var(--muted); cursor: pointer; transition: border-color 0.2s; }
 .api-badge:hover { border-color: var(--bord2); }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
 .dot.red { background: var(--red); box-shadow: 0 0 6px var(--red); }
-
-/* ── LAYOUT ── */
-.layout {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  flex: 1;
-  overflow: hidden;
-  height: calc(100vh - 57px);
-}
-
-/* ── SIDEBAR ── */
-.sidebar {
-  background: var(--surf);
-  border-right: 1px solid var(--bord);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
+.layout { display: grid; grid-template-columns: 300px 1fr; flex: 1; overflow: hidden; height: calc(100vh - 57px); }
+.sidebar { background: var(--surf); border-right: 1px solid var(--bord); display: flex; flex-direction: column; overflow: hidden; }
 .sidebar-top { padding: 16px; border-bottom: 1px solid var(--bord); }
-
-.section-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.biz-btn {
-  width: 100%;
-  text-align: left;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--bord);
-  background: var(--surf2);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 6px;
-  transition: all 0.15s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
+.biz-btn { width: 100%; text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bord); background: var(--surf2); color: var(--text); font-family: var(--font-body); font-size: 13px; font-weight: 500; cursor: pointer; margin-bottom: 6px; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
 .biz-btn:hover { border-color: var(--bord2); }
 .biz-btn.active { border-color: var(--accent); background: var(--accent-dim); }
 .biz-btn .biz-stars { font-size: 11px; color: var(--gold); }
-
-.fetch-btn {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background: var(--accent);
-  color: white;
-  font-family: var(--font-head);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
+.fetch-btn { width: 100%; padding: 10px; border-radius: 8px; border: none; background: var(--accent); color: white; font-family: var(--font-head); font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .fetch-btn:hover { background: #5a5aee; }
 .fetch-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
 .filters { padding: 12px 16px; border-bottom: 1px solid var(--bord); display: flex; gap: 6px; flex-wrap: wrap; }
-
-.chip {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--bord);
-  background: var(--surf2);
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
+.chip { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--bord); background: var(--surf2); color: var(--muted); cursor: pointer; transition: all 0.15s; }
 .chip.active { border-color: var(--accent); color: #a0a0ff; background: var(--accent-dim); }
-
 .review-list { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
-
-.review-item {
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--bord);
-  background: var(--surf2);
-  cursor: pointer;
-  transition: all 0.15s;
-  border-left: 3px solid var(--bord2);
-}
-
+.review-item { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--bord); background: var(--surf2); cursor: pointer; transition: all 0.15s; }
 .review-item:hover { border-color: var(--bord2); }
-.review-item.active { border-color: var(--accent); background: var(--accent-dim); border-left-color: var(--accent); }
-.review-item .ri-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-.review-item .ri-name { font-size: 12px; font-weight: 500; }
-.review-item .ri-stars { font-size: 11px; color: var(--gold); }
-.review-item .ri-snip { font-size: 11px; color: var(--muted); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
-
-/* ── MAIN ── */
+.review-item.active { border-color: var(--accent); background: var(--accent-dim); }
+.ri-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.ri-name { font-size: 12px; font-weight: 500; }
+.ri-stars { font-size: 11px; color: var(--gold); }
+.ri-snip { font-size: 11px; color: var(--muted); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
 .main { display: flex; flex-direction: column; overflow-y: auto; }
-
-.stats-bar {
-  padding: 16px 24px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  border-bottom: 1px solid var(--bord);
-  background: var(--surf);
-}
-
+.stats-bar { padding: 16px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; border-bottom: 1px solid var(--bord); background: var(--surf); }
 .stat-card { background: var(--surf2); border-radius: 8px; padding: 12px 14px; border: 1px solid var(--bord); }
-.stat-n { font-family: var(--font-head); font-size: 24px; font-weight: 800; color: var(--text); }
+.stat-n { font-family: var(--font-head); font-size: 24px; font-weight: 800; }
 .stat-n.danger { color: var(--red); }
 .stat-n.gold { color: var(--gold); }
 .stat-l { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
 .detail { padding: 24px; flex: 1; }
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60%;
-  color: var(--muted);
-  gap: 10px;
-  text-align: center;
-}
-
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60%; color: var(--muted); gap: 10px; text-align: center; }
 .empty-icon { font-size: 36px; opacity: 0.3; }
-
-.reviewer-header { margin-bottom: 16px; }
 .reviewer-name { font-family: var(--font-head); font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-.reviewer-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.reviewer-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
 .reviewer-stars { color: var(--gold); font-size: 14px; }
 .badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 .badge.pos { background: rgba(62,207,142,0.12); color: var(--green); }
 .badge.neg { background: rgba(240,107,107,0.12); color: var(--red); }
 .badge.neu { background: rgba(240,180,41,0.12); color: var(--gold); }
-
-.review-body {
-  background: var(--surf);
-  border: 1px solid var(--bord);
-  border-radius: 10px;
-  padding: 14px 16px;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-
+.review-body { background: var(--surf); border: 1px solid var(--bord); border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
 .divider { border: none; border-top: 1px solid var(--bord); margin: 16px 0; }
-
 .tone-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-.tone-btn {
-  font-size: 12px;
-  padding: 6px 13px;
-  border-radius: 8px;
-  border: 1px solid var(--bord);
-  background: var(--surf2);
-  color: var(--muted);
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.15s;
-}
+.tone-btn { font-size: 12px; padding: 6px 13px; border-radius: 8px; border: 1px solid var(--bord); background: var(--surf2); color: var(--muted); cursor: pointer; font-family: var(--font-body); transition: all 0.15s; }
 .tone-btn.active { border-color: var(--accent); color: #a0a0ff; background: var(--accent-dim); }
-
-.gen-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: var(--accent);
-  color: white;
-  font-family: var(--font-head);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-bottom: 12px;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
+.gen-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--accent); color: white; font-family: var(--font-head); font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .gen-btn:hover { background: #5a5aee; transform: translateY(-1px); }
 .gen-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-.reply-textarea {
-  width: 100%;
-  min-height: 130px;
-  background: var(--surf);
-  border: 1px solid var(--bord);
-  border-radius: 10px;
-  padding: 12px;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 13px;
-  line-height: 1.6;
-  resize: vertical;
-  margin-bottom: 10px;
-  transition: border-color 0.2s;
-}
+.reply-textarea { width: 100%; min-height: 130px; background: var(--surf); border: 1px solid var(--bord); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); font-size: 13px; line-height: 1.6; resize: vertical; margin-bottom: 10px; transition: border-color 0.2s; }
 .reply-textarea:focus { outline: none; border-color: var(--accent); }
-
 .action-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-
-.action-btn {
-  font-size: 12px;
-  padding: 9px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--bord);
-  background: var(--surf2);
-  color: var(--text);
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.15s;
-}
+.action-btn { font-size: 12px; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--bord); background: var(--surf2); color: var(--text); cursor: pointer; font-family: var(--font-body); transition: all 0.15s; }
 .action-btn:hover { border-color: var(--bord2); }
 .action-btn.primary { border-color: var(--accent); color: #a0a0ff; background: var(--accent-dim); }
-
 .char-count { font-size: 11px; color: var(--muted); margin-left: auto; }
-
-/* ── CONFIG MODAL ── */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.7);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1000;
-  display: none;
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; }
 .modal-overlay.open { display: flex; }
-.modal {
-  background: var(--surf);
-  border: 1px solid var(--bord2);
-  border-radius: 12px;
-  padding: 24px;
-  width: 480px;
-  max-width: 90vw;
-}
+.modal { background: var(--surf); border: 1px solid var(--bord2); border-radius: 12px; padding: 24px; width: 480px; max-width: 90vw; }
 .modal h2 { font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 16px; }
-.modal-input {
-  width: 100%;
-  background: var(--surf2);
-  border: 1px solid var(--bord);
-  border-radius: 8px;
-  padding: 10px 12px;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 13px;
-  margin-bottom: 10px;
-}
+.modal-input { width: 100%; background: var(--surf2); border: 1px solid var(--bord); border-radius: 8px; padding: 10px 12px; color: var(--text); font-family: var(--font-body); font-size: 13px; margin-bottom: 10px; }
 .modal-input:focus { outline: none; border-color: var(--accent); }
 .modal-row { display: flex; gap: 8px; margin-top: 6px; }
-.modal-btn {
-  flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--bord);
-  background: var(--surf2); color: var(--text); font-family: var(--font-head);
-  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
-}
+.modal-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--bord); background: var(--surf2); color: var(--text); font-family: var(--font-head); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
 .modal-btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
 .modal-btn:hover { opacity: 0.85; }
-
-/* ── SPINNER ── */
 .spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── TOAST ── */
-.toast {
-  position: fixed; bottom: 24px; right: 24px;
-  background: var(--surf3); border: 1px solid var(--bord2);
-  border-radius: 8px; padding: 12px 18px;
-  font-size: 13px; color: var(--text);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  z-index: 999; opacity: 0; transform: translateY(8px);
-  transition: all 0.2s; pointer-events: none;
-}
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--surf3); border: 1px solid var(--bord2); border-radius: 8px; padding: 12px 18px; font-size: 13px; color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 999; opacity: 0; transform: translateY(8px); transition: all 0.2s; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateY(0); }
-
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bord2); border-radius: 4px; }
@@ -381,7 +106,6 @@ header {
 </header>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sidebar-top">
       <div class="section-label">Επιχειρήσεις</div>
@@ -393,30 +117,24 @@ header {
         <span>Soul Kitchen</span>
         <span class="biz-stars">4.8 ★</span>
       </button>
-      <button class="fetch-btn" id="fetchBtn" onclick="fetchReviews()">
-        Φόρτωση Κριτικών
-      </button>
+      <button class="fetch-btn" id="fetchBtn" onclick="fetchReviews()">Φόρτωση Κριτικών</button>
     </div>
-
     <div class="filters">
       <span class="chip active" data-f="all">Όλες</span>
       <span class="chip" data-f="neg">Αρνητικές</span>
       <span class="chip" data-f="pos">Θετικές</span>
     </div>
-
     <div class="review-list" id="reviewList">
       <div style="font-size:12px;color:var(--muted);padding:8px;">Πάτα "Φόρτωση Κριτικών"</div>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="stats-bar" id="statsBar" style="display:none;">
       <div class="stat-card"><div class="stat-n" id="statTotal">0</div><div class="stat-l">Κριτικές</div></div>
       <div class="stat-card"><div class="stat-n danger" id="statNeg">0</div><div class="stat-l">Αρνητικές</div></div>
       <div class="stat-card"><div class="stat-n gold" id="statAvg">—</div><div class="stat-l">Μέση Βαθμ.</div></div>
     </div>
-
     <div class="detail" id="mainDetail">
       <div class="empty-state">
         <div class="empty-icon">→</div>
@@ -426,7 +144,6 @@ header {
   </div>
 </div>
 
-<!-- CONFIG MODAL -->
 <div class="modal-overlay" id="configModal">
   <div class="modal">
     <h2>⚙️ Ρυθμίσεις API</h2>
@@ -451,12 +168,8 @@ const PLACES = {
 };
 
 let state = {
-  biz: 'global',
-  filter: 'all',
-  reviews: [],
-  current: null,
-  tone: 'professional',
-  placesKey: localStorage.getItem('places_key') || 'AIzaSyCOjUD2-mDSTDGNAKIfGis8napMtiSpdG8',
+  biz: 'global', filter: 'all', reviews: [], current: null, tone: 'professional',
+  placesKey: localStorage.getItem('places_key') || '',
   anthropicKey: localStorage.getItem('anthropic_key') || ''
 };
 
@@ -488,7 +201,6 @@ function saveConfig() {
   closeConfig(); updateStatus(); showToast('Αποθηκεύτηκε ✓');
 }
 
-// ── BIZ SELECT ──
 document.querySelectorAll('.biz-btn').forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll('.biz-btn').forEach(b => b.classList.remove('active'));
@@ -502,7 +214,6 @@ document.querySelectorAll('.biz-btn').forEach(btn => {
   };
 });
 
-// ── FILTER ──
 document.querySelectorAll('.chip').forEach(c => {
   c.onclick = () => {
     document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
@@ -512,18 +223,15 @@ document.querySelectorAll('.chip').forEach(c => {
   };
 });
 
-// ── FETCH REVIEWS ──
 async function fetchReviews() {
   const btn = document.getElementById('fetchBtn');
   btn.disabled = true;
   btn.innerHTML = '<div class="spinner"></div>';
-
   try {
     const placeId = PLACES[state.biz].id;
     const resp = await fetch(`https://places.googleapis.com/v1/places/${placeId}?fields=reviews,rating,userRatingCount&key=${state.placesKey}`);
     const data = await resp.json();
     if (data.error) throw new Error(data.error.message);
-
     state.reviews = (data.reviews || []).map((r, i) => ({
       id: 'r' + i,
       name: r.authorAttribution?.displayName || 'Anonymous',
@@ -531,14 +239,9 @@ async function fetchReviews() {
       text: r.text?.text || r.originalText?.text || '',
       lang: r.text?.languageCode || 'en'
     }));
-
-    renderList();
-    renderStats();
+    renderList(); renderStats();
     showToast(`Φορτώθηκαν ${state.reviews.length} κριτικές`);
-  } catch(e) {
-    showToast('Σφάλμα: ' + e.message);
-  }
-
+  } catch(e) { showToast('Σφάλμα: ' + e.message); }
   btn.disabled = false;
   btn.innerHTML = 'Ανανέωση';
 }
@@ -570,10 +273,7 @@ function renderStats() {
 function renderList() {
   const list = filtered();
   const el = document.getElementById('reviewList');
-  if (!list.length) {
-    el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px;">Δεν βρέθηκαν κριτικές</div>';
-    return;
-  }
+  if (!list.length) { el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px;">Δεν βρέθηκαν κριτικές</div>'; return; }
   el.innerHTML = list.map(r => `
     <div class="review-item ${state.current?.id === r.id ? 'active' : ''}" data-id="${r.id}">
       <div class="ri-top">
@@ -582,12 +282,10 @@ function renderList() {
       </div>
       <div class="ri-snip">${(r.text || '(χωρίς κείμενο)').replace(/</g,'&lt;')}</div>
     </div>`).join('');
-
   el.querySelectorAll('.review-item').forEach(item => {
     item.onclick = () => {
       state.current = state.reviews.find(r => r.id === item.dataset.id);
-      renderList();
-      renderDetail();
+      renderList(); renderDetail();
     };
   });
 }
@@ -601,12 +299,10 @@ function renderDetail() {
   const r = state.current;
   const s = sentiment(r);
   el.innerHTML = `
-    <div class="reviewer-header">
-      <div class="reviewer-name">${r.name}</div>
-      <div class="reviewer-meta">
-        <span class="reviewer-stars">${stars(r.rating)}</span>
-        <span class="badge ${s.c}">${s.l}</span>
-      </div>
+    <div class="reviewer-name">${r.name}</div>
+    <div class="reviewer-meta">
+      <span class="reviewer-stars">${stars(r.rating)}</span>
+      <span class="badge ${s.c}">${s.l}</span>
     </div>
     <div class="review-body">${(r.text || '(Μόνο βαθμολογία)').replace(/</g,'&lt;')}</div>
     <hr class="divider">
@@ -624,7 +320,6 @@ function renderDetail() {
       <button class="action-btn primary" onclick="copyAndOpen()">Αντιγραφή & Άνοιγμα Google</button>
       <span class="char-count" id="charCount">0 χαρ.</span>
     </div>`;
-
   el.querySelectorAll('.tone-btn').forEach(b => {
     b.onclick = () => { state.tone = b.dataset.tone; renderDetail(); };
   });
@@ -637,27 +332,31 @@ async function generateReply() {
   btn.innerHTML = '<div class="spinner"></div> Δημιουργία...';
   document.getElementById('replyBox').value = '';
 
-  const toneMap = { professional: 'επαγγελματικό αλλά φιλικό', warm: 'ζεστό και προσωπικό', apologetic: 'συγγνωμικό και κατανοητικό', brief: 'σύντομο και ουσιαστικό' };
+  const toneMap = {
+    professional: 'επαγγελματικό αλλά φιλικό',
+    warm: 'ζεστό και προσωπικό',
+    apologetic: 'συγγνωμικό και κατανοητικό',
+    brief: 'σύντομο και ουσιαστικό'
+  };
   const langMap = { el: 'ελληνικά', en: 'αγγλικά', tr: 'τουρκικά', de: 'γερμανικά', fr: 'γαλλικά', it: 'ιταλικά', ru: 'ρωσικά' };
   const lang = langMap[r.lang] || 'αγγλικά';
+  const prompt = `Είσαι υπεύθυνος marketing για "${PLACES[state.biz].name}" στην Κω, Ελλάδα.\n\nΚριτική από ${r.name} (${r.rating}/5 ★):\n"${r.text || '(Μόνο βαθμολογία)'}"\n\nΓράψε απάντηση:\n- Τόνος: ${toneMap[state.tone]}\n- Γλώσσα: ${lang}\n- Μέγιστο 100 λέξεις\n- Χρησιμοποίησε το όνομα\n- Θετικές: ευχαρίστησε, κάλεσε ξανά\n- Αρνητικές: αναγνώρισε, συγγνώμη, λύση\n- ΧΩΡΙΣ emojis\n- ΜΟΝΟ η απάντηση`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/api/reply', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': state.anthropicKey, 'anthropic-version': '2023-06-01' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Είσαι υπεύθυνος marketing για "${PLACES[state.biz].name}" στην Κω, Ελλάδα.\n\nΚριτική από ${r.name} (${r.rating}/5 ★):\n"${r.text || '(Μόνο βαθμολογία)'}"\n\nΓράψε απάντηση:\n- Τόνος: ${toneMap[state.tone]}\n- Γλώσσα: ${lang}\n- Μέγιστο 100 λέξεις\n- Χρησιμοποίησε το όνομα\n- Θετικές: ευχαρίστησε, κάλεσε ξανά\n- Αρνητικές: αναγνώρισε, συγγνώμη, λύση\n- ΧΩΡΙΣ emojis\n- ΜΟΝΟ η απάντηση` }]
+        apiKey: state.anthropicKey,
+        messages: [{ role: 'user', content: prompt }]
       })
     });
     const data = await resp.json();
-    document.getElementById('replyBox').value = data.content?.[0]?.text || 'Σφάλμα';
+    document.getElementById('replyBox').value = data.content?.[0]?.text || 'Σφάλμα: ' + JSON.stringify(data);
     updateCC();
   } catch(e) {
     document.getElementById('replyBox').value = 'Σφάλμα: ' + e.message;
   }
-
   btn.disabled = false;
   btn.innerHTML = '✦ Επανάληψη';
 }
